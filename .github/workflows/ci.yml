@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint-and-test:
+    name: Lint & Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout du dépôt
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Installation Python
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      # 3. Installation des dépendances
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 4. Linting avec ruff (rapide, remplace flake8 + isort + pyupgrade)
+      - name: Ruff — lint
+        run: ruff check .
+
+      # 5. Vérification du formatage (optionnel — active si tu veux forcer black-style)
+      - name: Ruff — format check
+        run: ruff format --check .
+
+      # 6. Tests unitaires (si tu en as dans un dossier tests/)
+      #    Décommente quand tu as des tests :
+      # - name: Pytest
+      #   run: pytest tests/ -v

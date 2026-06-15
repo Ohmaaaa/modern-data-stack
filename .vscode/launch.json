@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run ingestion_flow (venv)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/flow/ingestion_flow.py",
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

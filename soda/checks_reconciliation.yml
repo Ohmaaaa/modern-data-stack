@@ -1,0 +1,21 @@
+# checks_reconciliation.yml
+# Vérification de la cohérence du staging DuckDB post-ingestion.
+# La réconciliation source <-> warehouse est faite en Python (voir pipeline_flow.py).
+#
+# Lancement : soda scan -d duckdb_local -c soda/configuration.yml soda/checks_reconciliation.yml
+
+checks for staging.customers:
+  - row_count > 0:
+      name: "staging.customers non vide après ingestion"
+
+checks for staging.products:
+  - row_count > 0:
+      name: "staging.products non vide après ingestion"
+
+checks for staging.orders:
+  - row_count > 0:
+      name: "staging.orders non vide après ingestion"
+
+checks for staging.order_items:
+  - row_count > 0:
+      name: "staging.order_items non vide après ingestion"

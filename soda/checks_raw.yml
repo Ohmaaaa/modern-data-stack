@@ -1,0 +1,13 @@
+# soda/checks_raw.yml
+# Tests de data quality Soda sur le schéma `raw` (juste après l'ingestion).
+#
+# Lancement :
+#   soda scan -d duckdb_local -c soda/configuration.yml soda/checks_raw.yml
+
+checks for raw.pg_sample:
+  - row_count > 0:
+      name: "La table raw.pg_sample n'est pas vide"
+  - missing_count(table_name) = 0:
+      name: "Pas de table_name NULL"
+  - duplicate_count(table_name, table_schema) = 0:
+      name: "Pas de doublon (table_name, table_schema)"

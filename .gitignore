@@ -1,0 +1,42 @@
+# Secrets — ne JAMAIS committer
+.env
+
+# Environnement virtuel
+.venv/
+venv/
+env/
+
+# DuckDB — fichier warehouse local
+*.duckdb
+*.duckdb.wal
+
+# dbt profiles (contient des chemins absolus locaux)
+dbt_projet/profiles.yml
+
+# dbt générés et user-spécifique
+dbt_projet/target/
+dbt_projet/logs/
+dbt_projet/dbt_packages/
+dbt_projet/.user.yml
+
+# Logs applicatifs
+logs/
+*.log
+
+# Streamlit cache
+.streamlit/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Artefacts locaux générés
+seed_output/
+test_duckdb
+
+# OS
+.DS_Store
+Thumbs.db

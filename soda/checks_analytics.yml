@@ -1,0 +1,37 @@
+# checks_analytics.yml
+# Soda scan sur DuckDB schéma main_analytics (après dbt run)
+# Lancement : soda scan -d duckdb_local -c soda/configuration.yml soda/checks_analytics.yml
+
+checks for main_analytics.mart_revenue_by_customer:
+  - row_count > 0:
+      name: "mart_revenue_by_customer n'est pas vide"
+  - missing_count(customer_id) = 0:
+      name: "customer_id sans NULL"
+  - duplicate_count(customer_id) = 0:
+      name: "un seul enregistrement par client"
+  - min(total_revenue) > 0:
+      name: "total_revenue toujours positif"
+  - missing_count(customer_name) = 0:
+      name: "customer_name sans NULL"
+
+checks for main_analytics.mart_revenue_by_category:
+  - row_count > 0:
+      name: "mart_revenue_by_category n'est pas vide"
+  - missing_count(category) = 0:
+      name: "category sans NULL"
+  - duplicate_count(category) = 0:
+      name: "une seule ligne par catégorie"
+  - min(total_revenue) > 0:
+      name: "CA par catégorie positif"
+  - min(units_sold) > 0:
+      name: "unités vendues positives"
+
+checks for main_analytics.mart_orders_summary:
+  - row_count > 0:
+      name: "mart_orders_summary n'est pas vide"
+  - missing_count(status) = 0:
+      name: "status sans NULL"
+  - duplicate_count(status) = 0:
+      name: "un seul enregistrement par statut"
+  - min(nb_orders) > 0:
+      name: "nb_orders toujours positif"

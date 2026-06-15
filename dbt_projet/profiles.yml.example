@@ -1,0 +1,7 @@
+duckdb_local:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "../warehouse.duckdb"   # chemin relatif depuis dbt_projet/
+      schema: main

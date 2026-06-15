@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: mart_revenue_by_customer
+    description: "CA agrégé par client (commandes non annulées)"
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+      - name: customer_name
+        tests: [not_null]
+      - name: total_revenue
+        tests: [not_null]
+
+  - name: mart_revenue_by_category
+    description: "CA agrégé par catégorie de produit"
+    columns:
+      - name: category
+        tests: [not_null, unique]
+      - name: total_revenue
+        tests: [not_null]
+
+  - name: mart_orders_summary
+    description: "Résumé des commandes par statut"
+    columns:
+      - name: status
+        tests: [not_null, unique]
+      - name: nb_orders
+        tests: [not_null]

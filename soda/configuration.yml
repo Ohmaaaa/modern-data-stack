@@ -1,0 +1,12 @@
+data_source duckdb_local:
+  type: duckdb
+  path: "C:/Users/bench/Documents/DuckDB/warehouse.duckdb"
+
+data_source postgres_source:
+  type: postgres
+  host: 127.0.0.1
+  port: 5433
+  username: dataops
+  password: dataops
+  database: oltp
+  schema: public

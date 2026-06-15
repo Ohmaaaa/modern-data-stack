@@ -1,0 +1,39 @@
+name: dbt_projet
+version: "1.0.0"
+config-version: 2
+
+profile: duckdb_local
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+log-path: "logs"
+target-path: "target"
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# ---------------------------------------------------------------
+# Schémas de sortie dbt (distincts du schéma `staging` de Prefect)
+#   source Prefect : staging.*
+#   dbt staging   → stg       (vues de nettoyage)
+#   dbt intermed. → int       (jointures)
+#   dbt mart      → analytics (tables KPIs → Streamlit)
+# ---------------------------------------------------------------
+models:
+  dbt_projet:
+    staging:
+      +schema: stg
+      +materialized: view
+
+    intermediate:
+      +schema: int
+      +materialized: view
+
+    mart:
+      +schema: analytics
+      +materialized: table

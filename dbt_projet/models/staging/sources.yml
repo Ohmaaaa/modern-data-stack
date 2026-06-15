@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: ingested
+    description: "Tables chargées par Prefect depuis PostgreSQL et MinIO"
+    schema: staging
+    tables:
+      - name: orders
+        description: "Commandes (MinIO orders.csv)"
+        columns:
+          - name: order_id
+            tests: [not_null, unique]
+
+      - name: order_items
+        description: "Lignes de commande (MinIO order_items.csv)"
+        columns:
+          - name: item_id
+            tests: [not_null, unique]
+
+      - name: customers
+        description: "Clients (PostgreSQL)"
+        columns:
+          - name: customer_id
+            tests: [not_null, unique]
+
+      - name: products
+        description: "Produits (PostgreSQL)"
+        columns:
+          - name: product_id
+            tests: [not_null, unique]

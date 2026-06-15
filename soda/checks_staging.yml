@@ -1,0 +1,50 @@
+# checks_staging.yml
+# Soda scan sur DuckDB schéma staging (après ingestion Prefect)
+# Lancement : soda scan -d duckdb_local -c soda/configuration.yml soda/checks_staging.yml
+
+checks for staging.orders:
+  - row_count > 0:
+      name: "orders chargée"
+  - missing_count(order_id) = 0:
+      name: "order_id sans NULL"
+  - duplicate_count(order_id) = 0:
+      name: "order_id unique"
+  - missing_count(customer_id) = 0:
+      name: "customer_id sans NULL"
+  - missing_count(status) = 0:
+      name: "status sans NULL"
+  - invalid_count(status) = 0:
+      name: "status dans les valeurs autorisées"
+      valid values: [delivered, shipped, pending, cancelled]
+  - missing_count(total_amount) = 0:
+      name: "total_amount sans NULL"
+
+checks for staging.order_items:
+  - row_count > 0:
+      name: "order_items chargée"
+  - missing_count(item_id) = 0:
+      name: "item_id sans NULL"
+  - duplicate_count(item_id) = 0:
+      name: "item_id unique"
+  - missing_count(order_id) = 0:
+      name: "order_id sans NULL dans order_items"
+  - missing_count(quantity) = 0:
+      name: "quantity sans NULL"
+
+checks for staging.customers:
+  - row_count > 0:
+      name: "customers chargée"
+  - missing_count(customer_id) = 0:
+      name: "customer_id sans NULL"
+  - duplicate_count(customer_id) = 0:
+      name: "customer_id unique"
+  - missing_count(email) = 0:
+      name: "email sans NULL"
+
+checks for staging.products:
+  - row_count > 0:
+      name: "products chargée"
+  - missing_count(product_id) = 0:
+      name: "product_id sans NULL"
+  - duplicate_count(product_id) = 0:
+      name: "product_id unique"

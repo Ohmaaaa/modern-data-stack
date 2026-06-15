@@ -1,0 +1,33 @@
+# checks_sources.yml
+# Soda scan sur PostgreSQL (source de production)
+# Lancement : soda scan -d postgres_source -c soda/configuration.yml soda/checks_sources.yml
+
+checks for customers:
+  - row_count > 0:
+      name: "customers n'est pas vide"
+  - missing_count(customer_id) = 0:
+      name: "customer_id sans NULL"
+  - duplicate_count(customer_id) = 0:
+      name: "customer_id unique"
+  - missing_count(email) = 0:
+      name: "email sans NULL"
+  - duplicate_count(email) = 0:
+      name: "email unique"
+  - missing_count(first_name) = 0:
+      name: "first_name sans NULL"
+  - missing_count(country) = 0:
+      name: "country sans NULL"
+
+checks for products:
+  - row_count > 0:
+      name: "products n'est pas vide"
+  - missing_count(product_id) = 0:
+      name: "product_id sans NULL"
+  - duplicate_count(product_id) = 0:
+      name: "product_id unique"
+  - missing_count(name) = 0:
+      name: "product name sans NULL"
+  - min(unit_price) > 0:
+      name: "unit_price toujours positif"
+  - min(stock) >= 0:
+      name: "stock jamais négatif"
