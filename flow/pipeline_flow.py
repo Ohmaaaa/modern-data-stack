@@ -20,11 +20,13 @@ from ingestion_flow import (
     validate_load,
 )
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DBT_DIR      = PROJECT_ROOT / "dbt_projet"
-SODA_DIR     = PROJECT_ROOT / "soda"
-DUCKDB_PATH  = str(PROJECT_ROOT / "warehouse.duckdb")
-PYTHON       = sys.executable
+PROJECT_ROOT  = Path(__file__).resolve().parents[1]
+DBT_DIR       = PROJECT_ROOT / "dbt_projet"
+SODA_DIR      = PROJECT_ROOT / "soda"
+DUCKDB_PATH   = str(PROJECT_ROOT / "warehouse.duckdb")
+# Toujours utiliser le venv du projet, peu importe quel Python lance ce script
+VENV_SCRIPTS  = PROJECT_ROOT / ".venv" / "Scripts"
+PYTHON        = str(VENV_SCRIPTS / "python.exe")
 POSTGRES_CONN = dict(host="127.0.0.1", port=5433, user="dataops", password="dataops", dbname="oltp")
 
 
